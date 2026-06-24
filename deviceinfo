@@ -15,7 +15,7 @@ deviceinfo_kernel_defconfig="vendor/pipa_defconfig halium.config"
 deviceinfo_kernel_clang_compile="true"
 deviceinfo_kernel_image_name="Image.gz-dtb"
 
-deviceinfo_bootimg_header_version="2"
+deviceinfo_bootimg_header_version="3"
 deviceinfo_bootimg_partition_size="100663296"
 
 deviceinfo_flash_pagesize="4096"
