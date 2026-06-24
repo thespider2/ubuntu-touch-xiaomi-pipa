@@ -1,20 +1,235 @@
-# UHID fix: Android sets group android_uhid which blocks BlueZ from
-# creating input devices for keyboards/mice (important for tablet BT keyboards)
-KERNEL=="uhid", GROUP="root", MODE="0666"
+# Ubuntu Touch udev rules for Xiaomi Pad 6 (pipa)
+# Based on Android 13 (API 33) device permissions
 
-# DRM permissions
-SUBSYSTEM=="drm", KERNEL=="card*", GROUP="graphics", MODE="0666"
-SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="graphics", MODE="0666"
+# Genlock
+ACTION=="add", KERNEL=="genlock", OWNER="system", GROUP="system", MODE="0666"
 
-# Input devices
+# WLAN
+ACTION=="add", KERNEL=="wlan", OWNER="wifi", GROUP="wifi", MODE="0660"
+
+# GPU / KGSL
+ACTION=="add", KERNEL=="kgsl", OWNER="system", GROUP="system", MODE="0666"
+ACTION=="add", KERNEL=="kgsl-3d0", OWNER="system", GROUP="system", MODE="0666"
+ACTION=="add", KERNEL=="kgsl-2d0", OWNER="root", GROUP="root", MODE="0666"
+ACTION=="add", KERNEL=="kgsl-2d1", OWNER="root", GROUP="root", MODE="0666"
+
+# ION / Membuf
+ACTION=="add", KERNEL=="ion", OWNER="system", GROUP="system", MODE="0664"
+ACTION=="add", KERNEL=="membuf", OWNER="system", GROUP="system", MODE="0664"
+
+# RTC
+ACTION=="add", KERNEL=="rtc0", OWNER="system", GROUP="system", MODE="0660"
+
+# SMD / IPC
+ACTION=="add", KERNEL=="smd0", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="smd4", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="smd5", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="smd6", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="smd7", OWNER="bluetooth", GROUP="bluetooth", MODE="0660"
+ACTION=="add", KERNEL=="smd11", OWNER="radio", GROUP="radio", MODE="0660"
+ACTION=="add", KERNEL=="smd2", OWNER="bluetooth", GROUP="bluetooth", MODE="0660"
+ACTION=="add", KERNEL=="smd3", OWNER="bluetooth", GROUP="bluetooth", MODE="0660"
+ACTION=="add", KERNEL=="smd_cxm_qmi", OWNER="radio", GROUP="radio", MODE="0640"
+
+# IPA / Modem data
+ACTION=="add", KERNEL=="ipa", OWNER="radio", GROUP="radio", MODE="0660"
+ACTION=="add", KERNEL=="wwan_ioctl", OWNER="radio", GROUP="radio", MODE="0660"
+ACTION=="add", KERNEL=="rmnet_ctrl", OWNER="usb", GROUP="usb", MODE="0660"
+ACTION=="add", KERNEL=="dpl_ctrl", OWNER="usb", GROUP="usb", MODE="0660"
+
+# HAB / HGSL
+ACTION=="add", KERNEL=="hab", OWNER="system", GROUP="system", MODE="0666"
+ACTION=="add", KERNEL=="hgsl", OWNER="system", GROUP="system", MODE="0666"
+
+# Synx / Camera sync
+ACTION=="add", KERNEL=="synx_device", OWNER="root", GROUP="system", MODE="0660"
+
+# Bluetooth
+ACTION=="add", KERNEL=="btpower", OWNER="bluetooth", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="pta", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="rfcomm0", OWNER="bluetooth", GROUP="bluetooth", MODE="0660"
+ACTION=="add", KERNEL=="ttyUSB0", OWNER="bluetooth", GROUP="bluetooth", MODE="0660"
+
+# Radio
+ACTION=="add", KERNEL=="radio0", OWNER="system", GROUP="system", MODE="0640"
+
+# SMD control / Multiplexer
+ACTION=="add", KERNEL=="smdcntl0", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl1", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl2", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl3", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl4", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl5", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl6", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl7", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcntl8", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev0", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev1", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev2", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev3", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev4", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev5", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev6", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev7", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smdcnt_rev8", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="smuxctl32", OWNER="radio", GROUP="radio", MODE="0640"
+
+# HSIC
+ACTION=="add", KERNEL=="hsicctl0", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl1", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl2", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl3", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl4", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl5", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl6", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl7", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl8", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl9", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl10", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl11", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl12", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl13", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl14", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl15", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="hsicctl16", OWNER="radio", GROUP="radio", MODE="0640"
+
+# MHI pipes (radio)
+ACTION=="add", KERNEL=="mhi_*_pipe_14", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="mhi_*_pipe_16", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="mhi_*_pipe_32", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="mhi_*_pipe_4", OWNER="system", GROUP="system", MODE="0660"
+
+# AT ports
+ACTION=="add", KERNEL=="at_usb0", OWNER="radio", GROUP="radio", MODE="0640"
+ACTION=="add", KERNEL=="at_mdm0", OWNER="radio", GROUP="radio", MODE="0640"
+
+# Camera / Video
+ACTION=="add", KERNEL=="video*", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="cvp*", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="media*", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="v4l-subdev*", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="gemini0", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="jpeg0", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="jpeg1", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="jpeg2", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="jpeg3", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="msm_camera/*", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="mercury0", OWNER="system", GROUP="system", MODE="0660"
+
+# QSEE / TEE
+ACTION=="add", KERNEL=="qseecom", OWNER="system", GROUP="drmrpc", MODE="0660"
+ACTION=="add", KERNEL=="qce", OWNER="system", GROUP="drmrpc", MODE="0660"
+ACTION=="add", KERNEL=="smcinvoke", OWNER="system", GROUP="drmrpc", MODE="0660"
+ACTION=="add", KERNEL=="qsee_ipc_irq_spss", OWNER="system", GROUP="drmrpc", MODE="0660"
+ACTION=="add", KERNEL=="pft", OWNER="system", GROUP="drmrpc", MODE="0660"
+
+# Secure processor
+ACTION=="add", KERNEL=="spcom", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="spss_utils", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="sp_kernel", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="sec_nvm_*", OWNER="system", GROUP="system", MODE="0660"
+
+# ADSP / DSP
+ACTION=="add", KERNEL=="adsprpc-smd", OWNER="system", GROUP="system", MODE="0664"
+ACTION=="add", KERNEL=="adsprpc-smd-secure", OWNER="system", GROUP="system", MODE="0644"
+ACTION=="add", KERNEL=="sdsprpc-smd", OWNER="system", GROUP="system", MODE="0660"
+
+# Display / Rotator
+ACTION=="add", KERNEL=="mdss_rotator", OWNER="system", GROUP="system", MODE="0664"
+ACTION=="add", KERNEL=="msm_rotator", OWNER="system", GROUP="system", MODE="0660"
+
+# Battery / QG
+ACTION=="add", KERNEL=="qg", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="qg_battery", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="vm_bms", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="battery_data", OWNER="system", GROUP="system", MODE="0660"
+
+# IIO
+ACTION=="add", KERNEL=="iio:device*", OWNER="system", GROUP="system", MODE="0664"
+
+# Modem
+ACTION=="add", KERNEL=="mdm", OWNER="system", GROUP="radio", MODE="0660"
+
+# Sensors
+ACTION=="add", KERNEL=="sensors", OWNER="system", GROUP="system", MODE="0660"
+
+# GPS
+ACTION=="add", KERNEL=="gnss_sirf", OWNER="gps", GROUP="gps", MODE="0660"
+
+# NFC
+ACTION=="add", KERNEL=="nfc-nci", OWNER="nfc", GROUP="nfc", MODE="0660"
+ACTION=="add", KERNEL=="nq-nci", OWNER="nfc", GROUP="nfc", MODE="0660"
+ACTION=="add", KERNEL=="assd", OWNER="nfc", GROUP="nfc", MODE="0660"
+
+# Touch / Haptics
+ACTION=="add", KERNEL=="qbt*", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="hbtp_input", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="hbtp_vm", OWNER="system", GROUP="system", MODE="0660"
+
+# WCNSS
+ACTION=="add", KERNEL=="wcnss_wlan", OWNER="system", GROUP="system", MODE="0660"
+ACTION=="add", KERNEL=="wcnss_ctrl", OWNER="system", GROUP="system", MODE="0660"
+
+# Audio DSP
+ACTION=="add", KERNEL=="wcd_dsp0_control", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="wcd-dsp-glink", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="audio_slimslave", OWNER="system", GROUP="audio", MODE="0660"
+
+# Video codec
+ACTION=="add", KERNEL=="msm_vidc_reg", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_vidc_dec", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_vidc_enc", OWNER="system", GROUP="audio", MODE="0660"
+
+# Audio codec devices
+ACTION=="add", KERNEL=="msm_qcelp", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_evrc", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_wma", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_wmapro", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_alac", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_ape", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_amrnb", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_amrwb", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_aac", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_fm", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_mvs", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_hweffects", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="msm_audio_cal", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="avtimer", OWNER="system", GROUP="audio", MODE="0660"
+
+# SPI (audio)
+ACTION=="add", KERNEL=="spidev0.0", OWNER="system", GROUP="audio", MODE="0660"
+ACTION=="add", KERNEL=="spidev2.0", OWNER="system", GROUP="audio", MODE="0660"
+
+# NPU
+ACTION=="add", KERNEL=="msm_npu", OWNER="system", GROUP="system", MODE="0644"
+
+# DRM
+ACTION=="add", KERNEL=="card0", SUBSYSTEM=="drm", OWNER="root", GROUP="graphics", MODE="0666"
+ACTION=="add", KERNEL=="renderD128", SUBSYSTEM=="drm", OWNER="root", GROUP="graphics", MODE="0666"
+
+# Input
 SUBSYSTEM=="input", KERNEL=="event*", GROUP="input", MODE="0660"
-
-# Audio
-SUBSYSTEM=="sound", KERNEL=="controlC*", GROUP="audio", MODE="0660"
-SUBSYSTEM=="sound", KERNEL=="pcmC*", GROUP="audio", MODE="0660"
-
-# Power supply
-SUBSYSTEM=="power_supply", GROUP="power", MODE="0664"
 
 # Backlight
 SUBSYSTEM=="backlight", KERNEL=="*", GROUP="video", MODE="0664"
+
+# Media / video (generic)
+SUBSYSTEM=="media", KERNEL=="media*", GROUP="video", MODE="0660"
+SUBSYSTEM=="video4linux", KERNEL=="video*", GROUP="video", MODE="0660"
+
+# Sensors (generic)
+SUBSYSTEM=="iio", GROUP="input", MODE="0660"
+
+# Audio (generic)
+SUBSYSTEM=="sound", KERNEL=="controlC*", GROUP="audio", MODE="0660"
+SUBSYSTEM=="sound", KERNEL=="pcmC*", GROUP="audio", MODE="0660"
+SUBSYSTEM=="sound", KERNEL=="timer", GROUP="audio", MODE="0660"
+
+# Power supply (generic)
+SUBSYSTEM=="power_supply", GROUP="power", MODE="0664"
+
+# UHID (Bluetooth HID userspace)
+KERNEL=="uhid", GROUP="root", MODE="0666"
+
+# Vibrator (generic)
+SUBSYSTEM=="leds", KERNEL=="vibrator*", GROUP="input", MODE="0660"
