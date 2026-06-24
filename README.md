@@ -21,9 +21,9 @@ Ubuntu Touch port for the Xiaomi Pad 6 (codename: pipa) based on **Halium 13**.
 ## Prerequisites
 
 - Xiaomi Pad 6 with unlocked bootloader
-- [Android 12 firmware](https://xiaomifirmwareupdater.com/firmware/pipa/) installed
+- [Android 13 firmware](https://xiaomifirmwareupdater.com/firmware/pipa/) installed
 - ADB and fastboot tools
-- Linux build environment (or use GitHub CI)
+- Linux build environment (or use GitLab CI)
 
 ## Building locally
 
@@ -33,7 +33,7 @@ sudo apt install bc bison build-essential ca-certificates cpio curl flex \
   git kmod libssl-dev libtinfo5 python2 sudo unzip wget xz-utils img2simg jq
 
 # Clone this repo
-git clone https://github.com/aymanreda/ubuntu-touch-xiaomi-pipa
+git clone https://gitlab.com/aymanrgab/ubuntu-touch-xiaomi-pipa
 cd ubuntu-touch-xiaomi-pipa
 
 # Build
@@ -92,6 +92,6 @@ First boot may take several minutes. After booting:
 
 ## Credits
 
-- Based on the working [Droidian port](https://github.com/aymanrgab/droidian-images-xiaomi-pipa) by @aymanreda
+- Based on the working [Droidian port](https://github.com/aymanrgab/droidian-images-xiaomi-pipa) by @aymanrgab
 - UBports community for build tools and documentation
 - Halium project for Android compatibility layer

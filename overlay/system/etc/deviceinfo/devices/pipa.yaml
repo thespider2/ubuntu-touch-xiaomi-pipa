@@ -4,10 +4,10 @@ pipa:
   DeviceType: tablet
   GridUnit: 20
   SupportedOrientations:
-    - Portrait
-    - InvertedPortrait
     - Landscape
     - InvertedLandscape
+    - Portrait
+    - InvertedPortrait
   PrimaryOrientation: Landscape
   PortraitOrientation: Portrait
   InvertedPortraitOrientation: InvertedPortrait
