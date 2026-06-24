@@ -1,0 +1,5 @@
+workdir/
+out/
+halium-generic-adaptation-build-tools/
+*.img
+*.gz
