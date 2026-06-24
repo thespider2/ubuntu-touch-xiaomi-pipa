@@ -1,0 +1,20 @@
+[Unit]
+Description=Mount binderfs and create binder nodes for Waydroid
+DefaultDependencies=false
+Before=waydroid-container.service
+Before=local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c '\
+  if ! mountpoint -q /dev/binderfs; then \
+    mkdir -p /dev/binderfs && \
+    mount -t binder binder /dev/binderfs; \
+  fi && \
+  ln -sf /dev/binderfs/binder /dev/anbox-binder && \
+  ln -sf /dev/binderfs/vndbinder /dev/anbox-vndbinder && \
+  ln -sf /dev/binderfs/hwbinder /dev/anbox-hwbinder'
+
+[Install]
+WantedBy=multi-user.target

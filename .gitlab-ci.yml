@@ -5,6 +5,10 @@ variables:
   BUILD_DEVEL_FLASHABLE_FOCAL: "1"
   ADAPTATION_TOOLS_BRANCH: main
 
+devel-flashable:
+  rules:
+    - when: never
+
 build:
   script:
     - apt update
