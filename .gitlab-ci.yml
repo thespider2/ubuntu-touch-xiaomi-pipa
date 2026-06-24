@@ -11,7 +11,7 @@ variables:
   DEVICEINFO_HALIUM_VERSION: "13"
   DEVICEINFO_KERNEL_SOURCE: "https://github.com/aymanrgab/linux-android-xiaomi-pipa"
   DEVICEINFO_KERNEL_SOURCE_BRANCH: "droidian"
-  DEVICEINFO_KERNEL_DEFCONFIG: "vendor/pipa_defconfig halium.config"
+  DEVICEINFO_KERNEL_DEFCONFIG: "vendor/pipa_defconfig"
   DEVICEINFO_KERNEL_CLANG_COMPILE: "true"
   DEVICEINFO_KERNEL_IMAGE_NAME: "Image.gz-dtb"
   DEVICEINFO_BOOTIMG_HEADER_VERSION: "3"

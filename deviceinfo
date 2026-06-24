@@ -11,7 +11,7 @@ deviceinfo_halium_version="13"
 
 deviceinfo_kernel_source="https://github.com/aymanrgab/linux-android-xiaomi-pipa"
 deviceinfo_kernel_source_branch="droidian"
-deviceinfo_kernel_defconfig="vendor/pipa_defconfig halium.config"
+deviceinfo_kernel_defconfig="vendor/pipa_defconfig"
 deviceinfo_kernel_clang_compile="true"
 deviceinfo_kernel_image_name="Image.gz-dtb"
 
