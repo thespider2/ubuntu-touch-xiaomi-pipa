@@ -1,0 +1,20 @@
+# UHID fix: Android sets group android_uhid which blocks BlueZ from
+# creating input devices for keyboards/mice (important for tablet BT keyboards)
+KERNEL=="uhid", GROUP="root", MODE="0666"
+
+# DRM permissions
+SUBSYSTEM=="drm", KERNEL=="card*", GROUP="graphics", MODE="0666"
+SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="graphics", MODE="0666"
+
+# Input devices
+SUBSYSTEM=="input", KERNEL=="event*", GROUP="input", MODE="0660"
+
+# Audio
+SUBSYSTEM=="sound", KERNEL=="controlC*", GROUP="audio", MODE="0660"
+SUBSYSTEM=="sound", KERNEL=="pcmC*", GROUP="audio", MODE="0660"
+
+# Power supply
+SUBSYSTEM=="power_supply", GROUP="power", MODE="0664"
+
+# Backlight
+SUBSYSTEM=="backlight", KERNEL=="*", GROUP="video", MODE="0664"

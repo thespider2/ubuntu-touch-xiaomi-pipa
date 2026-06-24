@@ -1,0 +1,31 @@
+pipa:
+  Name: pipa
+  PrettyName: "Xiaomi Pad 6"
+  DeviceType: tablet
+  GridUnit: 20
+  SupportedOrientations:
+    - Portrait
+    - InvertedPortrait
+    - Landscape
+    - InvertedLandscape
+  PrimaryOrientation: Landscape
+  PortraitOrientation: Portrait
+  InvertedPortraitOrientation: InvertedPortrait
+  LandscapeOrientation: Landscape
+  InvertedLandscapeOrientation: InvertedLandscape
+
+  Mir:
+    CursorTheme: default
+    CursorSize: 48
+    DisplayName: "Xiaomi Pad 6"
+    PhysicalDisplayWidth: 250
+    PhysicalDisplayHeight: 160
+    RefreshRate: 144000
+
+  Repowerd:
+    DoubleTapWake: true
+    NoSuspendOnCharger: true
+
+  HfdService:
+    HasFusionKeyboard: false
+    HasPhysicalKeyboard: false
