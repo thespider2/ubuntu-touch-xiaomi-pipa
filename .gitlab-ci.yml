@@ -1,7 +1,7 @@
 include:
-  - project: 'halium/halium-generic-adaptation-build-tools'
-    ref: 'master'
-    file: '/.gitlab-ci.yml'
+  - project: 'ubports/porting/community-ports/halium-generic-adaptation-build-tools'
+    ref: 'main'
+    file: '/gsi-port-ci.yml'
 
 variables:
   DEVICEINFO_NAME: "Xiaomi Pad 6"
