@@ -22,7 +22,7 @@ jobs:
             bc bison build-essential ca-certificates cpio curl \
             fakeroot flex git kmod libelf-dev libssl-dev libtinfo5 \
             lz4 python2 python3 sudo unzip wget xz-utils
-          sudo ln -s python2 /usr/bin/python
+          sudo ln -sf python2 /usr/bin/python
       - name: Clone build tools
         run: git clone -b $ADAPTATION_TOOLS_BRANCH https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools.git build
       - name: Run build
