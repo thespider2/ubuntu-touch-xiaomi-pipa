@@ -1,0 +1,10 @@
+[Unit]
+Description=Give correct permission to the brightness node so the slider works
+After=lightdm.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'chown phablet:phablet /sys/class/backlight/panel0-backlight/brightness'
+
+[Install]
+WantedBy=multi-user.target

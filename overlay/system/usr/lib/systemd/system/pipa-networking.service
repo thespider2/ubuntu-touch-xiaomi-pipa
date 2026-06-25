@@ -1,0 +1,12 @@
+[Unit]
+Description=Watch and remove netd rule 220 that breaks WiFi routing
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'exec ip monitor rule 2>/dev/null | while read -r line; do ip rule del pref 220 2>/dev/null; done'
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

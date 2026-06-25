@@ -1,0 +1,58 @@
+#!/bin/bash
+# Fix networking on Xiaomi Pad 6 (pipa)
+#
+# NM 1.56.1 l3cfg bug: fails to add routes because "pref-src" netlink
+# attribute is rejected by the 4.19 kernel. This means no subnet route
+# and no default gateway are set for any WiFi network.
+#
+# This script reads the correct gateway from NM's DHCP lease and adds
+# the missing default route manually.
+
+set -e
+
+IFACE="$1"
+ACTION="$2"
+
+case "$IFACE" in
+    wlan*|wlp*)
+        case "$ACTION" in
+            up|dhcp4-change|connectivity-change|reconnect)
+                # Remove netd's spurious policy routing rule
+                ip rule del pref 220 2>/dev/null || true
+
+                # Flush systemd-resolved DNS cache
+                resolvectl flush-caches 2>/dev/null || true
+
+                # --- NM l3cfg workaround: add default route ---
+                # Get the correct gateway from NM's DHCP lease
+                CONN=$(nmcli -t -f NAME,DEVICE con show --active 2>/dev/null | \
+                       grep ":$IFACE" | head -1 | cut -d: -f1)
+                GW=""
+                if [ -n "$CONN" ]; then
+                    GW=$(nmcli -t -f IP4.GATEWAY con show "$CONN" 2>/dev/null | cut -d: -f2)
+                fi
+
+                if [ -n "$GW" ]; then
+                    # NM has the correct gateway from DHCP. Add default route
+                    # with onlink since the subnet route is also missing.
+                    if ! ip route show default dev "$IFACE" | grep -q .; then
+                        ip route add default via "$GW" dev "$IFACE" onlink metric 600 2>/dev/null || true
+                    fi
+                else
+                    # Fallback: DHCP didn't provide a gateway. Try common
+                    # addresses. Must use onlink because the subnet route
+                    # is missing (NM l3cfg bug).
+                    IP=$(ip -4 addr show dev "$IFACE" | \
+                         awk '/inet /{print $2}' | head -1 | \
+                         sed 's/\/[0-9]*$//')
+                    PREFIX3=$(echo "$IP" | sed 's/\.[0-9]*$//')
+                    if [ -n "$PREFIX3" ]; then
+                        for gw in "$PREFIX3.1" "$PREFIX3.254"; do
+                            ip route add default via "$gw" dev "$IFACE" onlink metric 600 2>/dev/null && break
+                        done
+                    fi
+                fi
+                ;;
+        esac
+        ;;
+esac
