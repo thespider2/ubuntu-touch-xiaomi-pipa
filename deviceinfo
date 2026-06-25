@@ -7,6 +7,8 @@ deviceinfo_codename="pipa"
 
 deviceinfo_arch="aarch64"
 
+deviceinfo_ubuntu_touch_release="24.04-1.x"
+
 deviceinfo_halium_version="13"
 
 deviceinfo_kernel_source="https://github.com/aymanrgab/linux-android-xiaomi-pipa"

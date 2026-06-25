@@ -8,10 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  BUILD_DEVEL_FLASHABLE_FOCAL: "1"
   ADAPTATION_TOOLS_BRANCH: main
-  ROOTFS_URL: "https://ci.ubports.com/job/ubuntu-touch-rootfs/job/main/lastSuccessfulBuild/artifact/ubuntu-touch-android9plus-rootfs-arm64.tar.gz"
-  OTA_CHANNEL: "utnext/arm64/android9plus/daily"
 
 jobs:
   build:
@@ -56,7 +53,7 @@ jobs:
       - name: Prepare flashable
         run: |
           DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
-          ./build/fetch-and-prepare-latest-ota.sh "20.04/arm64/android9plus/devel" "$DEVICE" ota
+          ./build/fetch-and-prepare-latest-ota.sh "utnext/arm64/android9plus/daily" "$DEVICE" ota
           mkdir -p out_flashable
           ./build/system-image-from-ota.sh ota/ubuntu_command out_flashable
       - name: Upload flashable artifacts
