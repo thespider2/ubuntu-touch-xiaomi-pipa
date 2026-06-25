@@ -47,3 +47,5 @@ deviceinfo_has_dtbo="true"
 deviceinfo_dtbo_image_size="33554432"
 
 deviceinfo_rootfs_image_sector_size="4096"
+
+deviceinfo_system_partition_size="6144M"
