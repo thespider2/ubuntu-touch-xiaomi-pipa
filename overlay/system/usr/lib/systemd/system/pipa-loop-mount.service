@@ -1,0 +1,14 @@
+[Unit]
+Description=Loop-mount vendor/odm/product images from /userdata
+DefaultDependencies=no
+RequiresMountsFor=/userdata
+Before=mount-android-partitions.service
+Before=sysinit.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/libexec/pipa/loop-mount-images.sh
+
+[Install]
+WantedBy=mount-android-partitions.service
