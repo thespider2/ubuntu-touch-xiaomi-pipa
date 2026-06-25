@@ -30,6 +30,8 @@ deviceinfo_flash_offset_second="0x00f00000"
 deviceinfo_flash_offset_tags="0x00000100"
 deviceinfo_flash_offset_dtb="0x01f00000"
 
+deviceinfo_avb_vbmeta_partitions="boot,dtbo"
+
 deviceinfo_kernel_cmdline="rcupdate.rcu_expedited=1 rcu_nocbs=0-7 kpti=off cgroup_disable=pressure ramoops_memreserve=4M console=tty0 systempart=/dev/mapper/system:ro systemd.unified_cgroup_hierarchy=0"
 
 deviceinfo_use_overlaystore="true"
