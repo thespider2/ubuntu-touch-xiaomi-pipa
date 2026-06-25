@@ -13,7 +13,7 @@ for src in /proc/bootconfig /proc/cmdline; do
     [ -n "$s" ] && slot="$s" && break
 done
 
-PARTS="vendor odm product"
+PARTS="vendor odm"
 
 for part in $PARTS; do
     img="$IMAGES_DIR/$part.img"
