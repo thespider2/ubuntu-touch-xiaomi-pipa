@@ -1,0 +1,3 @@
+# Use sysfs backlight control instead of Android lights HAL
+REPOWERD_BACKLIGHT_BACKEND=sysfs
+REPOWERD_DISABLE_BOOSTER=true

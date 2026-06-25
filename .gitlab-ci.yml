@@ -4,6 +4,8 @@ include:
 variables:
   BUILD_DEVEL_FLASHABLE_FOCAL: "1"
   ADAPTATION_TOOLS_BRANCH: main
+  ROOTFS_URL: "https://ci.ubports.com/job/ubuntu-touch-rootfs/job/main/lastSuccessfulBuild/artifact/ubuntu-touch-android9plus-rootfs-arm64.tar.gz"
+  OTA_CHANNEL: "utnext/arm64/android9plus/daily"
 
 devel-flashable:
   rules:

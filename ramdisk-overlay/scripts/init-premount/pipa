@@ -1,0 +1,9 @@
+#!/bin/sh
+# Xiaomi Pad 6 (pipa) init-premount hook
+# Exports A/B slot info for the Halium boot script
+
+SLOT=$(cat /proc/cmdline | tr ' ' '\n' | grep androidboot.slot_suffix | cut -d= -f2)
+if [ -z "$SLOT" ]; then
+    SLOT="_a"
+fi
+export SLOT_SUFFIX="$SLOT"
