@@ -34,7 +34,6 @@ jobs:
           path: out/
 
   flashable:
-    if: github.event_name == 'workflow_dispatch'
     needs: [build]
     runs-on: ubuntu-22.04
     steps:
@@ -63,7 +62,6 @@ jobs:
           path: out_flashable/
 
   devel-flashable:
-    if: github.event_name == 'workflow_dispatch'
     needs: [build]
     runs-on: ubuntu-22.04
     steps:
