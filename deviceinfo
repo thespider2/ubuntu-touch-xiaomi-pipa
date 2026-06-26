@@ -34,7 +34,7 @@ deviceinfo_flash_offset_dtb="0x01f00000"
 
 deviceinfo_kernel_llvm_compile="false"
 
-deviceinfo_kernel_cmdline="rcupdate.rcu_expedited=1 rcu_nocbs=0-7 kpti=off cgroup_disable=pressure ramoops_memreserve=4M console=tty0 systempart=/dev/mapper/system:ro systemd.unified_cgroup_hierarchy=0"
+deviceinfo_kernel_cmdline="rcupdate.rcu_expedited=1 rcu_nocbs=0-7 kpti=off cgroup_disable=pressure ramoops_memreserve=4M console=tty0 systemd.unified_cgroup_hierarchy=0"
 
 # deviceinfo_use_overlaystore="true"
 
