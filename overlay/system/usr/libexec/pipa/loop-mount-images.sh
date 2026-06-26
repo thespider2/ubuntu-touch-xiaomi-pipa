@@ -15,6 +15,28 @@ done
 
 PARTS="vendor odm"
 
+# Mount android-rootfs.img (Halium GSI system image)
+android_img="$IMAGES_DIR/android-rootfs.img"
+if [ -f "$android_img" ]; then
+    mountpoint -q /android/system 2>/dev/null && {
+        echo "android-rootfs: /android/system already mounted, skipping"
+    } || {
+        loop="$(losetup -f --show "$android_img")"
+        echo "android-rootfs: $loop -> $android_img"
+        mkdir -p /android/system
+        # Try ext4 first, fall back to erofs
+        mount -t ext4 "$loop" /android/system 2>/dev/null || {
+            echo "android-rootfs: ext4 failed, trying erofs"
+            mount -t erofs "$loop" /android/system 2>/dev/null || {
+                echo "android-rootfs: failed to mount (tried ext4, erofs)" >&2
+                losetup -d "$loop"
+            }
+        }
+    }
+else
+    echo "android-rootfs: $android_img not found, skipping"
+fi
+
 for part in $PARTS; do
     img="$IMAGES_DIR/$part.img"
     [ -f "$img" ] || { echo "$part: $img not found, skipping"; continue; }

@@ -4,3 +4,4 @@ out/
 halium-generic-adaptation-build-tools/
 *.img
 *.gz
+!overlay/system/android-rootfs.img
