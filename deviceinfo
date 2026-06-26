@@ -36,7 +36,7 @@ deviceinfo_kernel_llvm_compile="true"
 
 deviceinfo_kernel_cmdline="rcupdate.rcu_expedited=1 rcu_nocbs=0-7 kpti=off cgroup_disable=pressure ramoops_memreserve=4M console=tty0 systempart=/dev/mapper/system:ro systemd.unified_cgroup_hierarchy=0"
 
-deviceinfo_use_overlaystore="true"
+# deviceinfo_use_overlaystore="true"
 
 deviceinfo_use_unified_recovery="true"
 deviceinfo_recovery_partition_size="134217728"
