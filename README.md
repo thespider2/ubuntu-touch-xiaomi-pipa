@@ -1,6 +1,6 @@
 # Ubuntu Touch for Xiaomi Pad 6 (pipa)
 
-Ubuntu Touch port for the Xiaomi Pad 6 (codename: pipa) based on **Halium 13**.
+Ubuntu Touch port for the Xiaomi Pad 6 (codename: pipa) based on **Halium 11**.
 
 ## Status
 
@@ -50,7 +50,7 @@ Files in `overlay/system/` are merged into the system image during build:
 ## Prerequisites
 
 - Xiaomi Pad 6 with unlocked bootloader
-- [Android 13 firmware](https://xiaomifirmwareupdater.com/firmware/pipa/) installed
+- [Android 11 firmware](https://xiaomifirmwareupdater.com/firmware/pipa/) installed
 - ADB and fastboot tools
 - Linux build environment (or use GitLab CI)
 

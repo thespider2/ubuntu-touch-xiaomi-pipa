@@ -1,5 +1,5 @@
 # Ubuntu Touch udev rules for Xiaomi Pad 6 (pipa)
-# Based on Android 13 (API 33) device permissions
+# Based on Android 11 (API 30) device permissions
 
 # Genlock
 ACTION=="add", KERNEL=="genlock", OWNER="system", GROUP="system", MODE="0666"
