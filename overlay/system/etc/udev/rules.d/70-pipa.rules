@@ -203,6 +203,9 @@ ACTION=="add", KERNEL=="spidev2.0", OWNER="system", GROUP="audio", MODE="0660"
 # NPU
 ACTION=="add", KERNEL=="msm_npu", OWNER="system", GROUP="system", MODE="0644"
 
+# Binder (Android IPC) — phablet user needs access for libhybris
+KERNEL=="*binder", OWNER="root", GROUP="phablet", MODE="0660"
+
 # DRM
 ACTION=="add", KERNEL=="card0", SUBSYSTEM=="drm", OWNER="root", GROUP="graphics", MODE="0666"
 ACTION=="add", KERNEL=="renderD128", SUBSYSTEM=="drm", OWNER="root", GROUP="graphics", MODE="0666"
