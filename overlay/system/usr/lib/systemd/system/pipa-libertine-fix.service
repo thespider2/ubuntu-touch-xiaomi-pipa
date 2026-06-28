@@ -1,0 +1,13 @@
+[Unit]
+Description=pipa: Libertine compatibility patches for UT 26.04
+DefaultDependencies=no
+Before=libertined.service lomiri.service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/pipa/pipa-libertine-fix.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
