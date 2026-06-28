@@ -22,9 +22,9 @@ pipa:
     PhysicalDisplayHeight: 160
     RefreshRate: 144000
 
-  Repowerd:
-    DoubleTapWake: true
-    NoSuspendOnCharger: true
+  DoubleTapToWake:
+    - /sys/touchpanel/double_tap|1|0
+  NoSuspendOnCharger: true
 
   HfdService:
     HasFusionKeyboard: false
