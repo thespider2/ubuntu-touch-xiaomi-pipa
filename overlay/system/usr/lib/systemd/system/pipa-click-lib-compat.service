@@ -1,0 +1,12 @@
+[Unit]
+Description=pipa: SONAME compat symlinks for preinstalled click apps
+Before=systemd-user-sessions.service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/pipa/pipa-click-lib-compat.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
