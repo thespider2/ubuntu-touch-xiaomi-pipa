@@ -5,3 +5,5 @@ halium-generic-adaptation-build-tools/
 *.img
 *.gz
 !overlay/system/android-rootfs.img
+overlay/system/var/lib/lxc/android/vendor.img
+overlay/system/var/lib/lxc/android/odm.img

@@ -76,9 +76,13 @@ sudo apt install bc bison build-essential ca-certificates cpio curl flex \
 git clone https://gitlab.com/aymanrgab/ubuntu-touch-xiaomi-pipa
 cd ubuntu-touch-xiaomi-pipa
 
-# Build
+# Build (CI downloads vendor/odm automatically; for local builds run the script first)
 ./build.sh -b workdir
 ```
+
+Android `vendor.img` and `odm.img` are downloaded at **CI build time** only (into
+`overlay/system/var/lib/lxc/android/`). For a local build, run
+`./scripts/fetch-android-partitions.sh` yourself first.
 
 Artifacts will be in `out/`:
 - `boot.img` — Kernel + initramfs

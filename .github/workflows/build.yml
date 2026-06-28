@@ -3,6 +3,7 @@ name: Build
 on:
   push:
     branches: [ "main", "halium-13" ]
+    tags: [ "v*" ]
   pull_request:
     branches: [ "main", "halium-13" ]
   workflow_dispatch:
@@ -23,6 +24,10 @@ jobs:
             fakeroot flex git kmod libelf-dev libssl-dev libtinfo5 \
             lz4 python2 python3 sudo unzip wget xz-utils
           sudo ln -sf python2 /usr/bin/python
+      - name: Download Android vendor/odm images
+        run: |
+          chmod +x scripts/fetch-android-partitions.sh
+          ./scripts/fetch-android-partitions.sh
       - name: Clone build tools
         run: git clone -b $ADAPTATION_TOOLS_BRANCH https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools.git build
       - name: Run build
@@ -91,3 +96,29 @@ jobs:
         with:
           name: devel-flashable-output
           path: out_devel/
+
+  release:
+    needs: [build, flashable, devel-flashable]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+      - name: Package release files
+        run: |
+          mkdir -p release
+          cp -a release-artifacts/build-output/. release/
+          mkdir -p release/flashable release/devel
+          cp -a release-artifacts/flashable-output/. release/flashable/
+          cp -a release-artifacts/devel-flashable-output/. release/devel/
+          cd release && find . -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/**/*
+          generate_release_notes: true
