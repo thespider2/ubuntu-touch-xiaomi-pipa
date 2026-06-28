@@ -37,8 +37,7 @@ Files in `overlay/system/` are merged into the system image during build:
 | Bluetooth | `bluetooth/main.conf` — Experimental=true | Droidian adaptation |
 | Bluetooth | `bluetooth/input.conf` — ClassicBondedOnly=false for LE HID | Droidian adaptation |
 | Bluetooth | `bluebinder.service.d/timeout.conf` — reduce timeout 120s→10s | Droidian adaptation |
-| Camera | `gst-droid/gstdroidcamsrcquirks.conf` — HDR, ZSL, high-quality | Droidian adaptation |
-| Camera | `halium-overlay/vendor/etc/camera/camxoverridesettings.txt` — tuning (HDR, NR, 95% JPEG) | Droidian adaptation |
+| Camera | No CamX overrides — stock HAL tuning works best with AAL+ on Halium | pipa port |
 | Torch | `pipa-flashlight-trigger.service` — torch0_trigger and sysfs permissions | Droidian adaptation |
 | Input | `udev/rules.d/70-pipa.rules` — full Qualcomm SM8250 udev ruleset | Droidian adaptation |
 | Power | `default/repowerd` — sysfs backlight, disable booster | Reference ports |

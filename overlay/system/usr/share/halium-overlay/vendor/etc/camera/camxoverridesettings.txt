@@ -1,4 +1,0 @@
-# Minimal CamX tuning: JPEG quality only. HDR/ZSL/multi-frame break AAL preview on Halium.
-overrideJpegQuality=95
-enableTuningMetadata=0
-enable3ADebugData=0
