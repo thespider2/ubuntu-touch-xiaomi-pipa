@@ -1,5 +1,5 @@
 # Device: Xiaomi Pad 6 (pipa)
-# Halium based on Android 11 (non-GKI, 5.10 kernel)
+# Halium based on Android 13 (non-GKI, 5.10 kernel)
 
 deviceinfo_name="Xiaomi Pad 6"
 deviceinfo_manufacturer="Xiaomi"
@@ -9,7 +9,7 @@ deviceinfo_arch="aarch64"
 
 deviceinfo_ubuntu_touch_release="24.04-1.x"
 
-deviceinfo_halium_version="11"
+deviceinfo_halium_version="13"
 
 deviceinfo_kernel_source="https://github.com/aymanrgab/linux-android-xiaomi-pipa"
 deviceinfo_kernel_source_branch="droidian"
@@ -21,7 +21,7 @@ deviceinfo_ramdisk_compression="lz4"
 
 deviceinfo_bootimg_header_version="3"
 deviceinfo_bootimg_partition_size="201326592"
-deviceinfo_bootimg_os_version="11"
+deviceinfo_bootimg_os_version="13"
 deviceinfo_bootimg_os_patch_level="2025-10"
 
 deviceinfo_flash_pagesize="4096"

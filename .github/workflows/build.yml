@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ "main", "halium-11" ]
+    branches: [ "main", "halium-13" ]
   pull_request:
-    branches: [ "main", "halium-11" ]
+    branches: [ "main", "halium-13" ]
   workflow_dispatch:
 
 env:

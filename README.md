@@ -1,6 +1,6 @@
 # Ubuntu Touch for Xiaomi Pad 6 (pipa)
 
-Ubuntu Touch port for the Xiaomi Pad 6 (codename: pipa) based on **Halium 11**.
+Ubuntu Touch port for the Xiaomi Pad 6 (codename: pipa) based on **Halium 13**.
 
 ## Status
 
