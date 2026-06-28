@@ -1,0 +1,5 @@
+  # Xiaomi Pad 6 (pipa) / SM8250 Adreno
+  /dev/kgsl-3d0 rw,
+  /dev/ion rw,
+  /dev/dri/ r,
+  /dev/dri/** rw,

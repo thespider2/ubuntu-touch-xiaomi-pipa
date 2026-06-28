@@ -1,0 +1,12 @@
+[Unit]
+Description=pipa: patch camera AppArmor profile for Hybris capture
+After=apparmor.service click-apparmor.service
+Before=systemd-user-sessions.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/pipa/fix-camera-apparmor.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

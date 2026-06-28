@@ -13,9 +13,12 @@ ACTION=="add", KERNEL=="kgsl-3d0", OWNER="system", GROUP="system", MODE="0666"
 ACTION=="add", KERNEL=="kgsl-2d0", OWNER="root", GROUP="root", MODE="0666"
 ACTION=="add", KERNEL=="kgsl-2d1", OWNER="root", GROUP="root", MODE="0666"
 
-# ION / Membuf
-ACTION=="add", KERNEL=="ion", OWNER="system", GROUP="system", MODE="0664"
-ACTION=="add", KERNEL=="membuf", OWNER="system", GROUP="system", MODE="0664"
+# ION / Membuf (0666: phablet/hybris needs write; group system is not phablet)
+ACTION=="add", KERNEL=="ion", OWNER="system", GROUP="system", MODE="0666"
+ACTION=="add", KERNEL=="membuf", OWNER="system", GROUP="system", MODE="0666"
+
+# Hybris ashmem UUID nodes created at capture time
+ACTION=="add", KERNEL=="ashmem*", OWNER="system", GROUP="system", MODE="0666"
 
 # RTC
 ACTION=="add", KERNEL=="rtc0", OWNER="system", GROUP="system", MODE="0660"
@@ -103,8 +106,8 @@ ACTION=="add", KERNEL=="mhi_*_pipe_4", OWNER="system", GROUP="system", MODE="066
 ACTION=="add", KERNEL=="at_usb0", OWNER="radio", GROUP="radio", MODE="0640"
 ACTION=="add", KERNEL=="at_mdm0", OWNER="radio", GROUP="radio", MODE="0640"
 
-# Camera / Video
-ACTION=="add", KERNEL=="video*", OWNER="system", GROUP="system", MODE="0660"
+# Camera / Video (video group: phablet is member, needed for AAL/HAL access)
+ACTION=="add", KERNEL=="video*", OWNER="system", GROUP="video", MODE="0660"
 ACTION=="add", KERNEL=="cvp*", OWNER="system", GROUP="system", MODE="0660"
 ACTION=="add", KERNEL=="media*", OWNER="system", GROUP="system", MODE="0660"
 ACTION=="add", KERNEL=="v4l-subdev*", OWNER="system", GROUP="system", MODE="0660"
