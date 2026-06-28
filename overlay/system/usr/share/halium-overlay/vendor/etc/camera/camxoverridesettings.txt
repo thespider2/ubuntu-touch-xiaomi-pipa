@@ -1,0 +1,13 @@
+overrideFlashTorchCurrent=200
+overrideFlashlightCurrent=250
+overrideEnableHDR=TRUE
+overrideJpegQuality=95
+overrideEnableMultiFrame=TRUE
+overrideEnableZSL=TRUE
+overrideEnableLLVD=TRUE
+overrideEnableEIS=TRUE
+exposeFullSizeForQCFA=TRUE
+isOEMStatSettingEnable=TRUE
+isOEMIQSettingEnable=TRUE
+enableTuningMetadata=0
+enable3ADebugData=0
