@@ -1,0 +1,8 @@
+[Path]
+# pipa exposes /dev/wlan at boot; wmtWifi is not present on this device.
+PathChanged=/dev/wlan
+
+[Install]
+# FIXME: multi-user.target is not the right target for this, but
+# we're bound on the lxc container's target.
+WantedBy=multi-user.target
