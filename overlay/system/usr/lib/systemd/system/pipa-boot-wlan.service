@@ -1,14 +1,12 @@
 [Unit]
 Description=Enables WLAN on boot (pipa)
-ConditionPathExists=|/sys/kernel/boot_wlan/boot_wlan
-ConditionPathExists=|/dev/wlan
-ConditionPathExists=|/dev/wmtWifi
+After=local-fs.target
+Before=NetworkManager.service
 
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/pipa-boot-wlan.sh
+RemainAfterExit=yes
 
 [Install]
-# FIXME: multi-user.target is not the right target for this, but
-# we're bound on the lxc container's target.
 WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Install pipa NetworkManager config into /run
+DefaultDependencies=no
+Before=NetworkManager.service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/pipa-install-nm-config.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

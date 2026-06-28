@@ -1,1 +1,1 @@
-../../usr/lib/systemd/system/pipa-boot-wlan.path
+/usr/lib/systemd/system/pipa-boot-wlan.path

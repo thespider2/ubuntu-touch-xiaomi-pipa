@@ -1,1 +1,1 @@
-../../usr/lib/systemd/system/pipa-boot-wlan.service
+/usr/lib/systemd/system/pipa-boot-wlan.service

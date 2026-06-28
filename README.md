@@ -28,8 +28,10 @@ Files in `overlay/system/` are merged into the system image during build:
 | Display | `devices/pipa.yaml` — Lomiri device config (tablet, 2880×1800, landscape) | Droidian adaptation |
 | Audio | ALSA UCM2 for Qualcomm SM8250 (Aqstic WCD938x) | Droidian adaptation |
 | Audio | `pulse/arm_droid_card_custom.pa` — PulseAudio droid card profile (s24le) | Droidian adaptation |
-| WiFi | `NetworkManager/conf.d/10-wifi-timeout.conf` — cnss driver timeout (60s) | Droidian adaptation |
-| WiFi | `NetworkManager/conf.d/90-pipa-wifi.conf` — ignore duplicate wlan1 | Droidian adaptation |
+| WiFi | `pipa-boot-wlan.service` + `.path` — power on cnss via `/dev/wlan` at boot | Droidian adaptation |
+| WiFi | `pipa-nm-wifi-config.service` — apply NM conf from `/usr/share/pipa/` at boot (rootfs `/etc` is ro) | pipa port |
+| WiFi | `NetworkManager/conf.d/10-wifi-timeout.conf` — autoconnect/DHCP timeouts | Droidian adaptation |
+| WiFi | `NetworkManager/conf.d/90-pipa-wifi.conf` — ignore duplicate cnss ifaces (wlan1, p2p0, wifi-aware0), disable P2P | Droidian adaptation |
 | WiFi | `NetworkManager/dispatcher.d/90-pipa-networking` — remove netd rule 220, fix default route | Droidian adaptation |
 | WiFi | `pipa-networking.service` — kernel-level netd rule 220 watcher | Droidian adaptation |
 | Bluetooth | `bluetooth/main.conf` — Experimental=true | Droidian adaptation |
