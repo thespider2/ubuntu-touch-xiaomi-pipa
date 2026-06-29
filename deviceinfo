@@ -1,5 +1,5 @@
 # Device: Xiaomi Pad 6 (pipa)
-# Halium based on Android 13 (non-GKI, 5.10 kernel)
+# Halium based on Android 13 (non-GKI, 4.19 kernel)
 
 deviceinfo_name="Xiaomi Pad 6"
 deviceinfo_manufacturer="Xiaomi"
@@ -23,23 +23,13 @@ deviceinfo_bootimg_header_version="3"
 deviceinfo_bootimg_partition_size="201326592"
 deviceinfo_bootimg_os_version="13"
 deviceinfo_bootimg_os_patch_level="2025-10"
-
-deviceinfo_flash_pagesize="4096"
 deviceinfo_flash_offset_base="0x00000000"
-deviceinfo_flash_offset_kernel="0x00008000"
-deviceinfo_flash_offset_ramdisk="0x01000000"
-deviceinfo_flash_offset_second="0x00f00000"
-deviceinfo_flash_offset_tags="0x00000100"
-deviceinfo_flash_offset_dtb="0x01f00000"
 
-deviceinfo_kernel_llvm_compile="false"
+deviceinfo_kernel_llvm_compile="true"
 
 deviceinfo_kernel_cmdline="ramoops_memreserve=4M console=tty0"
 
-# deviceinfo_use_overlaystore="true"
-
-deviceinfo_use_unified_recovery="true"
-deviceinfo_recovery_partition_size="134217728"
+deviceinfo_use_unified_recovery="false"
 
 deviceinfo_prebuilt_dtbo="dtbo.img"
 
