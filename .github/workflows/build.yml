@@ -124,10 +124,15 @@ jobs:
       - name: Package release files
         run: |
           mkdir -p release
-          cp release-artifacts/devel-flashable-output/ubuntu-touch-pipa-recovery-flashable.zip release/
-          cd release && sha256sum ubuntu-touch-pipa-recovery-flashable.zip > SHA256SUMS
+          cp -a release-artifacts/build-output/. release/
+          mkdir -p release/flashable release/devel
+          cp -a release-artifacts/flashable-output/. release/flashable/
+          cp -a release-artifacts/devel-flashable-output/. release/devel/
+          cd release && find . -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release/ubuntu-touch-pipa-recovery-flashable.zip
+          files: |
+            release/boot.img
+            release/devel/ubuntu-touch-pipa-recovery-flashable.zip
           generate_release_notes: true
