@@ -23,6 +23,7 @@ deviceinfo_bootimg_header_version="3"
 deviceinfo_bootimg_partition_size="201326592"
 deviceinfo_bootimg_os_version="13"
 deviceinfo_bootimg_os_patch_level="2025-10"
+deviceinfo_flash_pagesize="4096"
 deviceinfo_flash_offset_base="0x00000000"
 
 deviceinfo_kernel_llvm_compile="true"
