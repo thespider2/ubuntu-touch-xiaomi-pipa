@@ -42,10 +42,6 @@ deviceinfo_use_unified_recovery="true"
 deviceinfo_recovery_partition_size="134217728"
 
 deviceinfo_prebuilt_dtbo="dtbo.img"
-deviceinfo_dtb="vendor/qcom/kona-v2.1.dtb"
-deviceinfo_dtbo="vendor/qcom/pipa-sm8250-overlay.dtbo"
-deviceinfo_has_dtbo="true"
-deviceinfo_dtbo_image_size="33554432"
 
 deviceinfo_rootfs_image_sector_size="4096"
 
