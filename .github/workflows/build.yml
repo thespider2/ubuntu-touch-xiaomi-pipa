@@ -138,7 +138,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            release/boot.img
+            release/devel/*boot.img
             release/devel/ubuntu-touch-pipa-recovery-flashable.zip
           generate_release_notes: true
           prerelease: true
