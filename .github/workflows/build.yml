@@ -141,3 +141,4 @@ jobs:
             release/boot.img
             release/devel/ubuntu-touch-pipa-recovery-flashable.zip
           generate_release_notes: true
+          prerelease: true
