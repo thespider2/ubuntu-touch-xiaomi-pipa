@@ -129,6 +129,11 @@ jobs:
           cp -a release-artifacts/flashable-output/. release/flashable/
           cp -a release-artifacts/devel-flashable-output/. release/devel/
           cd release && find . -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+      - name: Delete existing release for this tag
+        run: |
+          gh release delete "${{ github.ref_name }}" --yes 2>/dev/null || true
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
