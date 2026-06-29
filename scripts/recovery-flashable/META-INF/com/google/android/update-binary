@@ -1,0 +1,93 @@
+#!/sbin/sh
+# Ubuntu Touch recovery flashable zip backend for pipa
+# Adapted from https://github.com/droidian-releng/android-recovery-flashing-template
+
+OUTFD=/proc/self/fd/$2;
+ZIP="$3";
+
+should_mount() {
+    if cat /proc/mounts | awk '{ print $2 }' | grep -q "^$1\$"; then
+        return 1;
+    else
+        return 0;
+    fi
+}
+
+mount_vendor(){
+  current_slot=$(grep -o 'androidboot\.slot_suffix=_[a-b]' /proc/cmdline)
+  case "${current_slot}" in
+    "androidboot.slot_suffix=_a") target_partition="vendor_a" ;;
+    "androidboot.slot_suffix=_b") target_partition="vendor_b" ;;
+    "") target_partition="vendor" ;;
+    *) abort "Unknown vendor slot" ;;
+  esac
+
+  partition=$(find /dev/block/by-name -name ${target_partition} 2>/dev/null | head -n 1)
+  if [ -z "${partition}" ]; then
+    partition=$(find /dev/block/platform -name ${target_partition} 2>/dev/null | head -n 1)
+  fi
+  if [ -n "${partition}" ]; then
+    ui_print "Found vendor partition ${partition}"
+    mount -o ro ${partition} /vendor
+    ui_print "Vendor mounted"
+  fi
+}
+
+ui_print() {
+  until [ ! "$1" ]; do
+    echo -e "ui_print $1\nui_print" > $OUTFD;
+    shift;
+  done;
+}
+
+show_progress() { echo "progress $1 $2" > $OUTFD; }
+abort() { ui_print "$*"; umount /vendor 2>/dev/null; umount /data 2>/dev/null; exit 1; }
+
+show_progress 1.34 4;
+ui_print " ";
+ui_print "Ubuntu Touch pipa installer";
+ui_print "https://github.com/thespider2/ubuntu-touch-xiaomi-pipa";
+ui_print " ";
+ui_print " ";
+
+if should_mount /vendor; then
+    mount_vendor;
+    vendor_mounted="yes";
+fi;
+
+if should_mount /data; then
+    mount /data;
+    data_mounted="yes";
+fi;
+
+mkdir -p /data/ubports-install;
+cd /data/ubports-install;
+
+ui_print "Installing Ubuntu Touch...";
+unzip -o "$ZIP" tools/busybox;
+
+if [ ! -e "/data/ubports-install/tools/busybox" ]; then
+  abort "Unzip failed. Aborting...";
+fi;
+
+chmod -R 755 /data/ubports-install/tools
+bb=/data/ubports-install/tools/busybox;
+
+$bb unzip -o "$ZIP" -x tools/busybox;
+
+if [ $? != 0 ]; then
+  abort "Unzip failed. Aborting...";
+fi;
+
+$bb ash /data/ubports-install/setup.sh $2;
+if [ $? != "0" ]; then
+  abort "Install script failed";
+fi;
+
+rm -rf /data/ubports-install;
+
+[ "$vendor_mounted" == "yes" ] && umount /vendor;
+[ "$data_mounted" == "yes" ] && umount /data;
+
+ui_print " ";
+ui_print "Done! Reboot when ready.";

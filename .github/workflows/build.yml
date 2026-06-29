@@ -102,13 +102,21 @@ jobs:
           mkdir -p out_devel
           ./build/system-image-from-ota.sh ota/ubuntu_command out_devel
           mv out_devel/rootfs.img out_devel/ubuntu.img
+          chmod +x scripts/make-recovery-flashable-zip.sh
+          ./scripts/make-recovery-flashable-zip.sh out_devel
           zstd -15 -T0 out_devel/ubuntu.img
           rm -f out_devel/ubuntu.img
       - name: Upload devel flashable
         uses: actions/upload-artifact@v4
         with:
           name: devel-flashable-output
-          path: out_devel/
+          path: |
+            out_devel/*boot.img
+            out_devel/dtbo.img
+            out_devel/recovery.img
+            out_devel/system.img
+            out_devel/ubuntu.img.zst
+            out_devel/ubuntu-touch-pipa-recovery-flashable.zip
 
   release:
     needs: [build, flashable, devel-flashable]
