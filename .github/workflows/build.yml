@@ -24,6 +24,10 @@ jobs:
             fakeroot flex git kmod libelf-dev libssl-dev libtinfo5 \
             lz4 python2 python3 sudo unzip wget xz-utils
           sudo ln -sf python2 /usr/bin/python
+      - name: Download Android vendor/odm images
+        run: |
+          chmod +x scripts/fetch-android-partitions.sh
+          ./scripts/fetch-android-partitions.sh
       - name: Clone build tools
         run: git clone -b $ADAPTATION_TOOLS_BRANCH https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools.git build
       - name: Run build
@@ -78,28 +82,15 @@ jobs:
         with:
           name: build-output
           path: out/
-      - name: Download Android vendor/odm images
-        run: |
-          chmod +x scripts/fetch-android-partitions.sh
-          ./scripts/fetch-android-partitions.sh
-      - name: Inject Android partitions into device tarball
-        run: |
-          DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
-          TARBALL="out/device_${DEVICE}.tar.xz"
-          TMPDIR="$(mktemp -d)"
-          tar xf "$TARBALL" -C "$TMPDIR"
-          mkdir -p "$TMPDIR/system/var/lib/lxc/android"
-          cp overlay/system/var/lib/lxc/android/vendor.img \
-             overlay/system/var/lib/lxc/android/odm.img \
-             "$TMPDIR/system/var/lib/lxc/android/"
-          rm -f "$TARBALL"
-          tar cJf "$TARBALL" -C "$TMPDIR" --owner=root --group=root .
-          rm -rf "$TMPDIR"
       - name: Prepare devel flashable
         run: |
           DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
           ./build/prepare-fake-ota.sh out/device_${DEVICE}.tar.xz ota
           mkdir -p out_devel
+          # Patch system-image-from-ota.sh: rm -f removed can fail with Permission denied
+          # when the extracted 'removed' file is owned by root (from --owner=root archives).
+          # This is non-fatal; suppress error and ignore exit code.
+          sed -i 's/rm -f removed/rm -f removed 2>\/dev\/null || true/g' build/system-image-from-ota.sh
           ./build/system-image-from-ota.sh ota/ubuntu_command out_devel
           mv out_devel/rootfs.img out_devel/ubuntu.img
           chmod +x scripts/make-recovery-flashable-zip.sh
