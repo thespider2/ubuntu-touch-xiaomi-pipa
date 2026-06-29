@@ -41,6 +41,7 @@ deviceinfo_kernel_cmdline="ramoops_memreserve=4M console=tty0"
 deviceinfo_use_unified_recovery="true"
 deviceinfo_recovery_partition_size="134217728"
 
+deviceinfo_prebuilt_dtbo="dtbo.img"
 deviceinfo_dtb="vendor/qcom/kona-v2.1.dtb"
 deviceinfo_dtbo="vendor/qcom/pipa-sm8250-overlay.dtbo"
 deviceinfo_has_dtbo="true"
