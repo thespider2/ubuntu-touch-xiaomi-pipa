@@ -128,8 +128,55 @@ jobs:
             out_devel/ubuntu-touch-pipa-recovery-flashable.zip
             out_devel/ubuntu-touch-pipa-fastboot-flashable.zip
 
+  devel-flashable-focal:
+    needs: [build]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git img2simg jq sudo wget xz-utils zstd
+      - name: Clone build tools
+        run: git clone -b $ADAPTATION_TOOLS_BRANCH https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools.git build
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: out/
+      - name: Prepare focal dev flashable
+        run: |
+          DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
+          ln -sf device_${DEVICE}_focal.tar.xz out/device_${DEVICE}.tar.xz
+          sed -i 's/deviceinfo_ubuntu_touch_release="24.04-1.x"/deviceinfo_ubuntu_touch_release="focal"/' deviceinfo
+          ./build/prepare-fake-ota.sh out/device_${DEVICE}.tar.xz ota
+          mkdir -p out_focal
+          sed -i 's/rm -f removed/rm -f removed 2>\/dev\/null || true/g' build/system-image-from-ota.sh
+          ./build/system-image-from-ota.sh ota/ubuntu_command out_focal
+          mv out_focal/rootfs.img out_focal/ubuntu.img
+          chmod +x scripts/make-recovery-flashable-zip.sh
+          ./scripts/make-recovery-flashable-zip.sh out_focal
+          zstd -15 -T0 out_focal/ubuntu.img
+          rm -f out_focal/ubuntu.img
+          sed -i 's/deviceinfo_ubuntu_touch_release="focal"/deviceinfo_ubuntu_touch_release="24.04-1.x"/' deviceinfo
+      - name: Build fastboot flashable zip (focal)
+        run: |
+          chmod +x scripts/make-fastboot-flashable-zip.sh
+          ./scripts/make-fastboot-flashable-zip.sh out_focal
+      - name: Upload focal flashable
+        uses: actions/upload-artifact@v4
+        with:
+          name: devel-flashable-focal-output
+          path: |
+            out_focal/*boot.img
+            out_focal/dtbo.img
+            out_focal/system.img
+            out_focal/ubuntu.img.zst
+            out_focal/ubuntu-touch-pipa-recovery-flashable.zip
+            out_focal/ubuntu-touch-pipa-fastboot-flashable.zip
+
   release:
-    needs: [build, flashable, devel-flashable]
+    needs: [build, flashable, devel-flashable, devel-flashable-focal]
     if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-22.04
     permissions:
@@ -144,9 +191,10 @@ jobs:
         run: |
           mkdir -p release
           cp -a release-artifacts/build-output/. release/
-          mkdir -p release/flashable release/devel
+          mkdir -p release/flashable release/devel release/devel-focal
           cp -a release-artifacts/flashable-output/. release/flashable/
           cp -a release-artifacts/devel-flashable-output/. release/devel/
+          cp -a release-artifacts/devel-flashable-focal-output/. release/devel-focal/
           cd release && find . -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
       - name: Delete existing release for this tag
         run: |
@@ -161,5 +209,8 @@ jobs:
             release/devel/*boot.img
             release/devel/ubuntu-touch-pipa-recovery-flashable.zip
             release/devel/ubuntu-touch-pipa-fastboot-flashable.zip
+            release/devel-focal/*boot.img
+            release/devel-focal/ubuntu-touch-pipa-recovery-flashable.zip
+            release/devel-focal/ubuntu-touch-pipa-fastboot-flashable.zip
           generate_release_notes: true
           prerelease: true
