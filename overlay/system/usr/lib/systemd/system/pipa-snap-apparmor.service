@@ -1,0 +1,12 @@
+[Unit]
+Description=pipa: patch snap-confine AppArmor for 4.19 kernel
+After=apparmor.service snapd.apparmor.service
+Wants=snapd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/pipa/pipa-snap-apparmor.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
