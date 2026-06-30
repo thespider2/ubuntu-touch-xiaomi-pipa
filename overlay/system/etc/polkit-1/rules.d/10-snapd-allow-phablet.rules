@@ -1,0 +1,9 @@
+// Allow phablet user to manage snaps without interactive auth.
+// The Lomiri polkit agent does not handle snapd's polkit check
+// properly on UT, so always grant io.snapcraft.snapd.manage for phablet.
+polkit.addRule(function(action, subject) {
+    if (action.id == "io.snapcraft.snapd.manage" &&
+        subject.user == "phablet") {
+        return polkit.Result.YES;
+    }
+});
