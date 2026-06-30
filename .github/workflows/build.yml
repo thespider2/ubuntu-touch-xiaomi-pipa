@@ -163,6 +163,11 @@ jobs:
         run: |
           chmod +x scripts/make-fastboot-flashable-zip.sh
           ./scripts/make-fastboot-flashable-zip.sh out_focal
+      - name: Rename focal zips
+        run: |
+          cd out_focal
+          mv ubuntu-touch-pipa-recovery-flashable.zip ubuntu-touch-pipa-focal-recovery-flashable.zip
+          mv ubuntu-touch-pipa-fastboot-flashable.zip ubuntu-touch-pipa-focal-fastboot-flashable.zip
       - name: Upload focal flashable
         uses: actions/upload-artifact@v4
         with:
@@ -172,8 +177,8 @@ jobs:
             out_focal/dtbo.img
             out_focal/system.img
             out_focal/ubuntu.img.zst
-            out_focal/ubuntu-touch-pipa-recovery-flashable.zip
-            out_focal/ubuntu-touch-pipa-fastboot-flashable.zip
+            out_focal/ubuntu-touch-pipa-focal-recovery-flashable.zip
+            out_focal/ubuntu-touch-pipa-focal-fastboot-flashable.zip
 
   release:
     needs: [build, flashable, devel-flashable, devel-flashable-focal]
@@ -210,7 +215,7 @@ jobs:
             release/devel/ubuntu-touch-pipa-recovery-flashable.zip
             release/devel/ubuntu-touch-pipa-fastboot-flashable.zip
             release/devel-focal/*boot.img
-            release/devel-focal/ubuntu-touch-pipa-recovery-flashable.zip
-            release/devel-focal/ubuntu-touch-pipa-fastboot-flashable.zip
+            release/devel-focal/ubuntu-touch-pipa-focal-recovery-flashable.zip
+            release/devel-focal/ubuntu-touch-pipa-focal-fastboot-flashable.zip
           generate_release_notes: true
           prerelease: true
