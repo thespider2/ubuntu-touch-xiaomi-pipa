@@ -6,6 +6,11 @@ on init
     setprop sys.usb.ffs.aio_compat 0
     start load_touchscreen
 
+on fs
+    # Qualcomm bootdevice symlink for fstab resolution
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+
 on fs && property:ro.debuggable=0
     write /sys/class/udc/a600000.dwc3/device/cmode 2
     start adbd

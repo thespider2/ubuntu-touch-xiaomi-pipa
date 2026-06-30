@@ -26,6 +26,8 @@ pipa:
     - /sys/touchpanel/double_tap|1|0
   NoSuspendOnCharger: true
 
+  FilesystemEncryption: true
+
   HfdService:
     HasFusionKeyboard: false
     HasPhysicalKeyboard: false

@@ -1,1 +1,5 @@
 ro.boot.dynamic_partitions=true
+ro.minui.use_qti_drm=true
+ro.fastbootd.available=true
+ro.minui.default_rotation=ROTATION_RIGHT
+ro.minui.default_touch_rotation=ROTATION_RIGHT

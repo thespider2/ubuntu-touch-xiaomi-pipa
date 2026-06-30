@@ -34,6 +34,7 @@ deviceinfo_kernel_clang_revision="r416183b"
 deviceinfo_kernel_cmdline="ramoops_memreserve=4M console=tty0"
 
 deviceinfo_use_unified_recovery="true"
+deviceinfo_unified_recovery_ui_density="xxhdpi"
 
 deviceinfo_prebuilt_dtbo="dtbo.img"
 
