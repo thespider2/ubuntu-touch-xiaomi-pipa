@@ -14,6 +14,8 @@ pipa:
   LandscapeOrientation: Landscape
   InvertedLandscapeOrientation: InvertedLandscape
 
+  WebkitDpr: 2.0
+
   Mir:
     CursorTheme: default
     CursorSize: 48
