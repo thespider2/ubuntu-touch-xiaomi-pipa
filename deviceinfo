@@ -28,9 +28,12 @@ deviceinfo_flash_offset_base="0x00000000"
 
 deviceinfo_kernel_llvm_compile="true"
 
+deviceinfo_kernel_clang_branch="android12L-gsi"
+deviceinfo_kernel_clang_revision="r416183b"
+
 deviceinfo_kernel_cmdline="ramoops_memreserve=4M console=tty0"
 
-deviceinfo_use_unified_recovery="false"
+deviceinfo_use_unified_recovery="true"
 
 deviceinfo_prebuilt_dtbo="dtbo.img"
 

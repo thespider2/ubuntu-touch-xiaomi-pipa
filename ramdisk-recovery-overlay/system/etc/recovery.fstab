@@ -1,0 +1,24 @@
+# Android recovery fstab for Xiaomi Pad 6 (pipa) — SM8250 (kona)
+# Dynamic (logical) partitions backed by super
+
+# Physical block devices
+/dev/block/by-name/boot          /boot           emmc    defaults                                    defaults
+/dev/block/by-name/dtbo          /dtbo           emmc    defaults                                    defaults
+/dev/block/by-name/vbmeta        /vbmeta         emmc    defaults                                    defaults
+/dev/block/by-name/vbmeta_system /vbmeta_system  emmc    defaults                                    defaults
+/dev/block/by-name/vbmeta_vendor /vbmeta_vendor  emmc    defaults                                    defaults
+/dev/block/by-name/misc          /misc           emmc    defaults                                    defaults
+
+# Data, cache, metadata
+/dev/block/by-name/userdata      /data           ext4    discard,noatime,nosuid,nodev,noauto_da_alloc,errors=panic    wait,check,quota,formattable,reservedsize=128M,fileencryption=aes-256-xts:aes-256-cts:v2,latemount
+/dev/block/by-name/cache         /cache          ext4    discard,noatime,nosuid,nodev,noauto_da_alloc,errors=panic    wait,check,formattable
+/dev/block/by-name/metadata      /metadata       ext4    discard,noatime,nosuid,nodev                                  wait,formattable,first_stage_mount
+/dev/block/by-name/persist       /persist        ext4    discard,noatime,nosuid,nodev                                  wait
+
+# Logical partitions inside super
+/system                          /system         ext4    ro,noatime,nosuid,nodev,discard                               wait,slotselect,avb,logical,first_stage_mount
+/system_ext                      /system_ext     ext4    ro,noatime,nosuid,nodev,discard                               wait,slotselect,avb,logical,first_stage_mount
+/product                         /product        ext4    ro,noatime,nosuid,nodev,discard                               wait,slotselect,avb,logical,first_stage_mount
+/vendor                          /vendor         ext4    ro,noatime,nosuid,nodev,discard                               wait,slotselect,avb,logical,first_stage_mount
+/vendor_dlkm                     /vendor_dlkm    ext4    ro,noatime,nosuid,nodev,discard                               wait,slotselect,avb,logical,first_stage_mount
+/odm                             /odm            ext4    ro,noatime,nosuid,nodev,discard                               wait,slotselect,avb,logical,first_stage_mount

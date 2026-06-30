@@ -32,6 +32,20 @@ jobs:
         run: git clone -b $ADAPTATION_TOOLS_BRANCH https://gitlab.com/ubports/porting/community-ports/halium-generic-adaptation-build-tools.git build
       - name: Run build
         run: ./build.sh
+      - name: Build focal device tarball
+        run: |
+          DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
+          mv out/device_${DEVICE}.tar.xz out/device_${DEVICE}_24.04-1.x.tar.xz
+          mv out/device_${DEVICE}.tar.build out/device_${DEVICE}_24.04-1.x.tar.build
+          rm -f out/device_${DEVICE}_usrmerge.tar.*
+          find workdir/tmp/system -not -path "*/lib/modules/*" -type f -delete
+          find workdir/tmp/system -empty -type d -delete
+          sed -i 's/deviceinfo_ubuntu_touch_release="24.04-1.x"/deviceinfo_ubuntu_touch_release="focal"/' deviceinfo
+          ./build/build-tarball-mainline.sh "${DEVICE}" out workdir/tmp usrmerge
+          mv out/device_${DEVICE}.tar.xz out/device_${DEVICE}_focal.tar.xz
+          mv out/device_${DEVICE}.tar.build out/device_${DEVICE}_focal.tar.build
+          sed -i 's/deviceinfo_ubuntu_touch_release="focal"/deviceinfo_ubuntu_touch_release="24.04-1.x"/' deviceinfo
+          ln -s device_${DEVICE}_24.04-1.x.tar.xz out/device_${DEVICE}.tar.xz
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -85,6 +99,7 @@ jobs:
       - name: Prepare devel flashable
         run: |
           DEVICE="$(source deviceinfo && echo $deviceinfo_codename)"
+          ln -sf device_${DEVICE}_24.04-1.x.tar.xz out/device_${DEVICE}.tar.xz
           ./build/prepare-fake-ota.sh out/device_${DEVICE}.tar.xz ota
           mkdir -p out_devel
           # Patch system-image-from-ota.sh: rm -f removed can fail with Permission denied
@@ -97,6 +112,10 @@ jobs:
           ./scripts/make-recovery-flashable-zip.sh out_devel
           zstd -15 -T0 out_devel/ubuntu.img
           rm -f out_devel/ubuntu.img
+      - name: Build fastboot flashable zip
+        run: |
+          chmod +x scripts/make-fastboot-flashable-zip.sh
+          ./scripts/make-fastboot-flashable-zip.sh out_devel
       - name: Upload devel flashable
         uses: actions/upload-artifact@v4
         with:
@@ -104,10 +123,10 @@ jobs:
           path: |
             out_devel/*boot.img
             out_devel/dtbo.img
-            out_devel/recovery.img
             out_devel/system.img
             out_devel/ubuntu.img.zst
             out_devel/ubuntu-touch-pipa-recovery-flashable.zip
+            out_devel/ubuntu-touch-pipa-fastboot-flashable.zip
 
   release:
     needs: [build, flashable, devel-flashable]
@@ -140,5 +159,6 @@ jobs:
           files: |
             release/devel/*boot.img
             release/devel/ubuntu-touch-pipa-recovery-flashable.zip
+            release/devel/ubuntu-touch-pipa-fastboot-flashable.zip
           generate_release_notes: true
           prerelease: true
