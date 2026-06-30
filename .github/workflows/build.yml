@@ -157,6 +157,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
+            release/device_pipa_focal.tar.xz
             release/devel/*boot.img
             release/devel/ubuntu-touch-pipa-recovery-flashable.zip
             release/devel/ubuntu-touch-pipa-fastboot-flashable.zip
